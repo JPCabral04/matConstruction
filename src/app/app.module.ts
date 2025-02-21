@@ -8,10 +8,28 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { StockComponent } from './pages/stock/stock.component';
+import { RegistryComponent } from './pages/registry/registry.component';
+import { ComponentsComponent } from './shared/components/components.component';
+import { InterfacesComponent } from './shared/interfaces/interfaces.component';
+import { ServicesComponent } from './shared/services/services.component';
+import { GuardsComponent } from './shared/guards/guards.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    ProfileComponent,
+    StockComponent,
+    RegistryComponent,
+    ComponentsComponent,
+    InterfacesComponent,
+    ServicesComponent,
+    GuardsComponent
   ],
   imports: [
     BrowserModule,
