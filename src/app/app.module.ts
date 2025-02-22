@@ -14,7 +14,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { StockComponent } from './pages/stock/stock.component';
 import { RegistryComponent } from './pages/registry/registry.component';
 import { ComponentsComponent } from './shared/components/components.component';
-import { InterfacesComponent } from './shared/interfaces/interfaces.component';
 import { ServicesComponent } from './shared/services/services.component';
 import { GuardsComponent } from './shared/guards/guards.component';
 
@@ -27,7 +26,6 @@ import { GuardsComponent } from './shared/guards/guards.component';
     StockComponent,
     RegistryComponent,
     ComponentsComponent,
-    InterfacesComponent,
     ServicesComponent,
     GuardsComponent
   ],
