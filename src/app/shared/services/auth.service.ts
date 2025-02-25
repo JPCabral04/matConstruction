@@ -4,8 +4,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { User } from './interfaces/user.interface';
-import { UserType } from './enums/userType.enum';
+import { User } from '../interfaces/user.interface';
+import { UserType } from '../enums/userType.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -40,17 +40,17 @@ export class AuthService {
     return this.firestore.collection('users').doc(id).set(user);
   }
 
-  // login(email: string, password: string) {
-  //   this.auth.signInWithEmailAndPassword(email, password).then(userCredential => {
-  //     if (userCredential.user?.emailVerified) {
-  //       this.router.navigate(['/home']);
-  //     }
-  //   })
-  //     .catch(error => {
-  //       console.log(error);
+  login(email: string, password: string) {
+    this.auth.signInWithEmailAndPassword(email, password).then(userCredential => {
+      if (userCredential.user) {
+        this.router.navigate(['/home']);
+      }
+    })
+      .catch(error => {
+        console.log(error);
 
-  //     })
-  // }
+      })
+  }
 
   // redefinirSenha(email: string) {
   //   this.auth.sendPasswordResetEmail(email)
