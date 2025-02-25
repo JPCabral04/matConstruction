@@ -52,11 +52,11 @@ export class AuthService {
       })
   }
 
-  // redefinirSenha(email: string) {
-  //   this.auth.sendPasswordResetEmail(email)
-  //     .then(() => { })
-  //     .catch(error => console.log(error))
-  // }
+  resetPassword(email: string) {
+    this.auth.sendPasswordResetEmail(email)
+      .then(() => { })
+      .catch(error => console.log(error))
+  }
 
   // logout() {
   //   this.auth.signOut()

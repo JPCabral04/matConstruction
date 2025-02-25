@@ -6,8 +6,12 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { RegistryComponent } from './pages/registry/registry.component';
 import { StockComponent } from './pages/stock/stock.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { InitialScreenComponent } from './pages/initial-screen/initial-screen.component';
 
 const routes: Routes = [
+  { path: "", component: InitialScreenComponent },
+  { path: "forgot-password", component: ForgotPasswordComponent },
   { path: "login", component: LoginComponent },
   { path: "signUp", component: SignUpComponent },
   { path: "home", component: HomeComponent },
