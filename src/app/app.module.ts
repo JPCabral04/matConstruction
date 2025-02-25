@@ -15,6 +15,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { StockComponent } from './pages/stock/stock.component';
 import { RegistryComponent } from './pages/registry/registry.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { InitialScreenComponent } from './pages/initial-screen/initial-screen.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     ProfileComponent,
     StockComponent,
     RegistryComponent,
-    SignUpComponent
+    SignUpComponent,
+    ForgotPasswordComponent,
+    InitialScreenComponent
   ],
   imports: [
     BrowserModule,
