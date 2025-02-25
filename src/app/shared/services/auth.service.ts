@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) { }
 
-  signUp(email: string, password: string) {
+  signUp(name: string, email: string, password: string) {
 
     this.auth.createUserWithEmailAndPassword(email, password)
       .then(async userCredential => {
@@ -22,8 +22,9 @@ export class AuthService {
 
         if (user) {
           const userData: User = {
+            nome: name,
             email: email,
-            type: UserType.leitor
+            tipoUsuario: UserType.leitor
           }
 
           await this.saveData(user.uid, userData);

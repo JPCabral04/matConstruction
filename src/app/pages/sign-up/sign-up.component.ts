@@ -11,6 +11,7 @@ export class SignUpComponent {
 
   signUpForm = new FormGroup(
     {
+      name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', Validators.required)
@@ -34,10 +35,11 @@ export class SignUpComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
+      const name = this.signUpForm.get('name')?.value;
       const email = this.signUpForm.get('email')?.value;
       const password = this.signUpForm.get('password')?.value;
-      if (email && password) {
-        this.auth.signUp(email, password);
+      if (email && password && name) {
+        this.auth.signUp(name, email, password);
       }
     }
   }

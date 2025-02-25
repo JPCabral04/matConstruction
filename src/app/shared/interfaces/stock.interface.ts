@@ -2,11 +2,11 @@ import { Produto } from "./product.interface";
 import { User } from "./user.interface";
 
 export interface Stock {
-  product: Produto,
-  lot: number,
-  quantity: number,
-  valityDate?: Date,
-  registryDate: Date,
-  lastEditDate: Date,
-  editingUser: User
+  produto: Produto,
+  lote: number,
+  quantidade: number,
+  dataValidade?: Date,
+  dataCadastro: Date,
+  dataUltimaEdicao: Date,
+  usuarioEditou: User
 }
