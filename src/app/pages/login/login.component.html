@@ -1,9 +1,72 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <label for="email">E-mail </label>
-  <input id="email" type="email" formControlName="email" />
+<div class="flex h-screen items-center justify-center bg-primary px-4">
+  <form
+    class="flex w-full max-w-md flex-col gap-6 rounded-2xl border-2 border-solid bg-white p-8 shadow-2xl"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <!-- Título -->
+    <h1 class="mb-4 text-center text-3xl font-semibold">Login</h1>
 
-  <label for="password">Senha </label>
-  <input id="password" type="password" formControlName="password" />
+    <!-- Campo de E-mail -->
+    <div class="flex flex-col">
+      <label class="mb-1 text-sm font-medium text-gray-700" for="email">
+        E-mail
+      </label>
+      <input
+        class="rounded-lg border border-gray-300 p-3 text-gray-900 shadow-sm focus:border-primary focus:ring-1 focus:ring-primary"
+        id="email"
+        type="email"
+        formControlName="email"
+        aria-label="E-mail"
+        autocomplete="email"
+        required
+      />
+    </div>
 
-  <button type="submit" [disabled]="!loginForm.valid">Confirmar</button>
-</form>
+    <!-- Campo de Senha -->
+    <div class="flex flex-col">
+      <label class="mb-1 text-sm font-medium text-gray-700" for="password">
+        Senha
+      </label>
+      <input
+        class="rounded-lg border border-gray-300 p-3 text-gray-900 shadow-sm focus:border-primary focus:ring-1 focus:ring-primary"
+        id="password"
+        type="password"
+        formControlName="password"
+        aria-label="Senha"
+        autocomplete="current-password"
+        required
+      />
+    </div>
+
+    <!-- Esqueci minha senha -->
+    <a class="text-sm text-primary hover:underline" href="#"
+      >Esqueceu a senha?</a
+    >
+
+    <!-- Botões -->
+    <div class="flex flex-col gap-3">
+      <button
+        class="rounded-full border-2 border-primary bg-primary p-3 text-white transition hover:scale-105 hover:bg-opacity-90 disabled:opacity-50"
+        type="submit"
+        [disabled]="!loginForm.valid"
+      >
+        Entrar
+      </button>
+
+      <!-- Separador -->
+      <div class="my-3 flex items-center">
+        <div class="w-full border-t border-gray-400"></div>
+        <span class="px-2 text-gray-500">Ou</span>
+        <div class="w-full border-t border-gray-400"></div>
+      </div>
+
+      <button
+        class="transi rounded-full border-[1px] border-primary p-3 text-primary transition hover:scale-105 hover:bg-primary hover:text-white"
+        type="button"
+      >
+        Cadastrar-se
+      </button>
+    </div>
+  </form>
+</div>
