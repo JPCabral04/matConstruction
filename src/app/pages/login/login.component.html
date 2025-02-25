@@ -5,7 +5,11 @@
     (ngSubmit)="onSubmit()"
   >
     <!-- Título -->
-    <h1 class="mb-4 text-center text-3xl font-semibold">Login</h1>
+    <h1
+      class="border-b border-gray-200 pb-4 text-center text-3xl font-semibold"
+    >
+      Login
+    </h1>
 
     <!-- Campo de E-mail -->
     <div class="flex flex-col">
@@ -64,6 +68,7 @@
       <button
         class="transi rounded-full border-[1px] border-primary p-3 text-primary transition hover:scale-105 hover:bg-primary hover:text-white"
         type="button"
+        [routerLink]="['/signUp']"
       >
         Cadastrar-se
       </button>
