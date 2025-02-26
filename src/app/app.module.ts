@@ -17,6 +17,9 @@ import { RegistryComponent } from './pages/registry/registry.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { InitialScreenComponent } from './pages/initial-screen/initial-screen.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { UsersComponent } from './pages/users/users.component';
+import { ProductsComponent } from './pages/products/products.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { InitialScreenComponent } from './pages/initial-screen/initial-screen.co
     RegistryComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    InitialScreenComponent
+    InitialScreenComponent,
+    HeaderComponent,
+    UsersComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,

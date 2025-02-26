@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { User } from '../interfaces/user.interface';
+import { Observable, of, firstValueFrom } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { IUser } from '../interfaces/user.interface';
 import { UserType } from '../enums/userType.enum';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class AuthService {
         const user = userCredential?.user;
 
         if (user) {
-          const userData: User = {
+          const userData: IUser = {
             nome: name,
             email: email,
             tipoUsuario: UserType.leitor
@@ -37,7 +38,7 @@ export class AuthService {
       })
   }
 
-  saveData(id: string, user: User) {
+  saveData(id: string, user: IUser) {
     return this.firestore.collection('users').doc(id).set(user);
   }
 
@@ -59,24 +60,44 @@ export class AuthService {
       .catch(error => console.log(error))
   }
 
-  // logout() {
-  //   this.auth.signOut()
-  //     .then(() => {
-  //       this.router.navigate(['/']);
-  //     })
-  //     .catch(error => console.log(error))
-  // }
+  logout() {
+    this.auth.signOut()
+      .then(() => {
+        this.router.navigate(['/login']);
+      })
+      .catch(error => console.log(error))
+  }
 
-  // getUserData(): Observable<any> {
-  //   return this.auth.authState.pipe(
-  //     switchMap(user => {
-  //       if (user) {
-  //         return this.firestore.collection('users').doc(user.uid).valueChanges();
-  //       } else {
-  //         return of(null);
-  //       }
-  //     })
-  //   )
-  // }
+  async getCurrentUser(): Promise<any> {
+    return this.auth.currentUser ?? firstValueFrom(
+      new Observable<any>((observer: any) => {
+        const unsubscribe = this.auth.onAuthStateChanged(user => {
+          observer.next(user);
+          observer.complete();
+        });
+        return { unsubscribe: async () => (await unsubscribe)() };
+      })
+    );
+  }
+
+  getUserType(id: string): Observable<string | null> {
+    return this.firestore.collection('users').doc<IUser>(id).valueChanges().pipe(
+      map((user: any) => user ? user.tipoUsuario : null)
+    )
+  }
+
+  getUserData(): Observable<any> {
+    return this.auth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.firestore.collection('users').doc(user.uid).valueChanges();
+        } else {
+          return of(null);
+        }
+      })
+    )
+  }
 
 }
+
+

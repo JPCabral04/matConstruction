@@ -1,9 +1,9 @@
-import { Stock } from "./stock.interface";
-import { User } from "./user.interface";
+import { IStock } from "./stock.interface";
+import { IUser } from "./user.interface";
 
-export interface StockRelease {
-  estoque: Stock,
+export interface IStockRelease {
+  estoque: IStock,
   quantidade: number,
   data: Date,
-  usuario: User
+  usuario: IUser
 }

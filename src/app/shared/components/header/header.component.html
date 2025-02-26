@@ -1,0 +1,48 @@
+<header
+  class="z-10 flex h-20 w-full items-center justify-between bg-primary px-16 py-4 shadow-md"
+>
+  <!-- Logo -->
+  <div>
+    <img src="/assets/images/Logo.png" alt="Logo Construmax" class="h-12" />
+  </div>
+
+  <!-- Menu -->
+  <nav class="flex w-full items-center justify-around">
+    <a
+      [routerLink]="['/profile']"
+      class="text-lg font-medium text-white transition duration-300 hover:text-gray-300"
+      >Perfil</a
+    >
+    @if (isAdmin) {
+      <a
+        [routerLink]="['/users']"
+        class="text-lg font-medium text-white transition duration-300 hover:text-gray-300"
+        >Usuários</a
+      >
+    }
+    <a
+      [routerLink]="['/products']"
+      class="text-lg font-medium text-white transition duration-300 hover:text-gray-300"
+      >Produtos</a
+    >
+    <a
+      [routerLink]="['/stock']"
+      class="text-lg font-medium text-white transition duration-300 hover:text-gray-300"
+      >Estoque</a
+    >
+    <a
+      [routerLink]="['/registry']"
+      class="text-lg font-medium text-white transition duration-300 hover:text-gray-300"
+      >Baixas</a
+    >
+  </nav>
+
+  <!-- Avatar e Logout -->
+  <div class="flex items-center gap-4">
+    <img
+      src="/assets/images/avatar.png"
+      alt="Avatar"
+      class="h-10 w-10 rounded-full"
+    />
+  </div>
+</header>

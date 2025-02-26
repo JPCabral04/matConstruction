@@ -1,11 +1,11 @@
-import { User } from "./user.interface";
+import { IUser } from "./user.interface";
 
-export interface Produto {
+export interface IProduto {
   nome: string,
   tipo: string,
   marca: string,
   dataCadastro: Date,
   dataUltimaEdicao: Date,
-  usuarioEditou: User,
+  usuarioEditou: IUser,
   descricao?: string
 }

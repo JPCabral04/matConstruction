@@ -8,6 +8,9 @@ import { StockComponent } from './pages/stock/stock.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { InitialScreenComponent } from './pages/initial-screen/initial-screen.component';
+import { UsersComponent } from './pages/users/users.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { admGuard } from './shared/guards/adm.guard';
 
 const routes: Routes = [
   { path: "", component: InitialScreenComponent },
@@ -18,6 +21,8 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent },
   { path: "registry", component: RegistryComponent },
   { path: "stock", component: StockComponent },
+  { path: "users", component: UsersComponent, canActivate: [admGuard] },
+  { path: "products", component: ProductsComponent },
 ];
 
 @NgModule({
