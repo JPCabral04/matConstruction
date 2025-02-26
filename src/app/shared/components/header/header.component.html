@@ -38,11 +38,17 @@
   </nav>
 
   <!-- Avatar e Logout -->
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-8">
     <img
       src="/assets/images/avatar.png"
       alt="Avatar"
       class="h-10 w-10 rounded-full"
     />
+
+    <a
+      (click)="logout()"
+      class="cursor-pointer text-lg font-medium text-white transition duration-300 hover:text-gray-300"
+      >Sair</a
+    >
   </div>
 </header>

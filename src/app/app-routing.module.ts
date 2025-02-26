@@ -11,18 +11,20 @@ import { InitialScreenComponent } from './pages/initial-screen/initial-screen.co
 import { UsersComponent } from './pages/users/users.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { admGuard } from './shared/guards/adm.guard';
+import { authGuard } from './shared/guards/auth.guard';
+import { unauthGuard } from './shared/guards/unauth.guard';
 
 const routes: Routes = [
   { path: "", component: InitialScreenComponent },
-  { path: "forgot-password", component: ForgotPasswordComponent },
-  { path: "login", component: LoginComponent },
-  { path: "signUp", component: SignUpComponent },
-  { path: "home", component: HomeComponent },
-  { path: "profile", component: ProfileComponent },
-  { path: "registry", component: RegistryComponent },
-  { path: "stock", component: StockComponent },
-  { path: "users", component: UsersComponent, canActivate: [admGuard] },
-  { path: "products", component: ProductsComponent },
+  { path: "forgot-password", component: ForgotPasswordComponent, /*canActivate: [unauthGuard]*/ },
+  { path: "login", component: LoginComponent, /*canActivate: [unauthGuard]*/ },
+  { path: "signUp", component: SignUpComponent, /*canActivate: [unauthGuard]*/ },
+  { path: "home", component: HomeComponent, /*canActivate: [authGuard]*/ },
+  { path: "profile", component: ProfileComponent, /*canActivate: [authGuard]*/ },
+  { path: "registry", component: RegistryComponent, /*canActivate: [authGuard]*/ },
+  { path: "stock", component: StockComponent, /*canActivate: [authGuard]*/ },
+  { path: "users", component: UsersComponent, /*canActivate: [admGuard, authGuard]*/ },
+  { path: "products", component: ProductsComponent, /*canActivate: [authGuard]*/ },
 ];
 
 @NgModule({
