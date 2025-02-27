@@ -8,6 +8,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
+
+  public perfilImagem: string = '';
   public isAdmin: boolean = false;
 
   constructor(private auth: AuthService) { }
@@ -24,6 +26,12 @@ export class HeaderComponent implements OnInit {
       .catch(error => {
         console.log("Erro ao obter o usuário", error);
       })
+
+    this.auth.getUserData().subscribe(user => {
+      if (user) {
+        this.perfilImagem = user.imagemUrl;
+      }
+    })
   }
 
   logout() {
