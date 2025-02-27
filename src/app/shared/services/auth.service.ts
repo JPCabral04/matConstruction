@@ -23,6 +23,7 @@ export class AuthService {
 
         if (user) {
           const userData: IUser = {
+            codigo: user.uid.substring(0, 6).toUpperCase(),
             nome: name,
             email: email,
             tipoUsuario: UserType.leitor
@@ -95,6 +96,12 @@ export class AuthService {
           return of(null);
         }
       })
+    )
+  }
+
+  getUserId(): Observable<string | null> {
+    return this.auth.authState.pipe(
+      map(user => user ? user.uid : null)
     )
   }
 
