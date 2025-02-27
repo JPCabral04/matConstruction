@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent, /*canActivate: [authGuard]*/ },
   { path: "registry", component: RegistryComponent, /*canActivate: [authGuard]*/ },
   { path: "stock", component: StockComponent, /*canActivate: [authGuard]*/ },
-  { path: "users", component: UsersComponent, /*canActivate: [admGuard, authGuard]*/ },
+  { path: "users", component: UsersComponent, canActivate: [admGuard, authGuard] },
   { path: "products", component: ProductsComponent, /*canActivate: [authGuard]*/ },
 ];
 
