@@ -5,7 +5,8 @@
   <input
     class="mt-10 w-full max-w-md rounded-lg border border-gray-300 p-3 text-gray-900 shadow-md focus:border-primary focus:ring-1 focus:ring-primary"
     type="text"
-    placeholder="Pesquisar usuário..."
+    placeholder="Pesquisar usuário por atributos..."
+    (keydown)="filterUsers($event)"
   />
 
   <!-- Seção dos usuários -->
@@ -21,7 +22,7 @@
     </div>
 
     <!-- Usuários -->
-    @for (user of users; track $index) {
+    @for (user of filteredUsers; track $index) {
       <div
         class="relative flex w-full items-center rounded-xl border-2 border-primary px-16 py-8"
       >
