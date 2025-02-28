@@ -1,5 +1,58 @@
 <app-header></app-header>
 
-<div>
-  <input type="text" />
+<div class="mb-4 flex min-h-screen flex-col items-center">
+  <!-- Barra de pesquisa -->
+  <input
+    class="mt-10 w-full max-w-md rounded-lg border border-gray-300 p-3 text-gray-900 shadow-md focus:border-primary focus:ring-1 focus:ring-primary"
+    type="text"
+    placeholder="Pesquisar usuário..."
+  />
+
+  <!-- Seção dos usuários -->
+  <section
+    class="mt-16 flex w-full max-w-4xl flex-col items-center justify-center gap-4"
+  >
+    <!-- Atributos Usuários -->
+    <div class="grid w-full grid-cols-4 items-center px-16 text-center">
+      <h2 class="text-lg text-primary">Nome</h2>
+      <h2 class="text-lg text-primary">E-mail</h2>
+      <h2 class="text-lg text-primary">Código</h2>
+      <h2 class="text-lg text-primary">Função</h2>
+    </div>
+
+    <!-- Usuários -->
+    @for (user of users; track $index) {
+      <div
+        class="relative flex w-full items-center rounded-xl border-2 border-primary px-16 py-8"
+      >
+        @if (user.imagemUrl) {
+          <img
+            class="absolute left-0 z-20 h-20 w-20 -translate-x-1/2 rounded-full border-2 border-primary bg-white"
+            [src]="user.imagemUrl"
+            alt="Foto usuário"
+          />
+        } @else {
+          <img
+            class="absolute left-0 z-20 h-20 w-20 -translate-x-1/2 rounded-full border-2 border-primary bg-white"
+            src="assets/images/perfil.png"
+            alt="Foto usuário"
+          />
+        }
+        <div class="grid w-full grid-cols-4 items-center text-center">
+          <p>
+            {{ user.nome }}
+          </p>
+          <p>
+            {{ user.email }}
+          </p>
+          <p>
+            {{ user.codigo }}
+          </p>
+          <p>
+            {{ user.tipoUsuario }}
+          </p>
+        </div>
+      </div>
+    }
+  </section>
 </div>

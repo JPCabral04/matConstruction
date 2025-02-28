@@ -17,28 +17,34 @@
     <a
       [routerLink]="['/profile']"
       class="text-lg font-semibold text-white transition duration-300 hover:text-gray-300"
+      routerLinkActive="text-black/65"
       >Perfil</a
     >
+
     @if (isAdmin) {
       <a
         [routerLink]="['/users']"
         class="text-lg font-semibold text-white transition duration-300 hover:text-gray-300"
+        routerLinkActive="text-black/65"
         >Usuários</a
       >
     }
     <a
       [routerLink]="['/products']"
       class="text-lg font-semibold text-white transition duration-300 hover:text-gray-300"
+      routerLinkActive="text-black/65"
       >Produtos</a
     >
     <a
       [routerLink]="['/stock']"
       class="text-lg font-semibold text-white transition duration-300 hover:text-gray-300"
+      routerLinkActive="text-black/65"
       >Estoque</a
     >
     <a
       [routerLink]="['/registry']"
       class="text-lg font-semibold text-white transition duration-300 hover:text-gray-300"
+      routerLinkActive="text-black/65"
       >Baixas</a
     >
   </nav>

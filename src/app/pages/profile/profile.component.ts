@@ -19,8 +19,8 @@ export class ProfileComponent implements OnInit {
   isUploading: boolean = false;
 
   profileForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    email: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.email]),
     userType: new FormControl({ value: '', disabled: true }, [Validators.required]),
     userCode: new FormControl({ value: '', disabled: true }, [Validators.required]),
     photoPath: new FormControl('')
@@ -97,34 +97,26 @@ export class ProfileComponent implements OnInit {
 
   saveFormChanges() {
     this.auth.getUserId().subscribe(id => {
-      if (id) {
+      if (id && this.profileForm.valid) {
+        console.log("Salvando alterações...");
 
-        if (this.profileForm.valid) {
-          const userData = {
-            nome: this.profileForm.value.name || undefined,
-            email: this.profileForm.value.email || undefined,
-            imagemUrl: this.selectedPhotoFile ? this.storeImage() : undefined // Chama storeImage se uma foto foi selecionada
-          };
+        const userData: Partial<IUser> = {
+          nome: this.profileForm.value.name || undefined
+        };
 
-          console.log(userData.imagemUrl);
-
-          // Verifica se imagem foi carregada antes de atualizar
-          userData.imagemUrl?.then((imageUrl: string) => {
-            this.db.updateDocument<IUser>('users', id, { ...userData, imagemUrl: imageUrl })
-              .then(() => {
-                this.formWasEditted = false;
-                alert('Perfil atualizado');
-              })
-              .catch((error) => {
-                console.error('Erro ao atualizar perfil:', error);
-              });
+        // Se uma nova imagem foi selecionada, armazenamos e aguardamos o URL
+        if (this.selectedPhotoFile) {
+          this.storeImage().then((imageUrl: string) => {
+            userData.imagemUrl = imageUrl;
+            this.db.updateDocument<IUser>('users', id, userData);
           }).catch(error => {
             console.error('Erro ao fazer upload da imagem:', error);
           });
+        } else {
+          this.db.updateDocument<IUser>('users', id, userData);
         }
       }
     });
   }
-
 
 }
