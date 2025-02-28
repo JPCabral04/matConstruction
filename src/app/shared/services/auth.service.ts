@@ -69,23 +69,6 @@ export class AuthService {
       .catch(error => console.log(error))
   }
 
-  async getCurrentUser(): Promise<any> {
-    return this.auth.currentUser ?? firstValueFrom(
-      new Observable<any>((observer: any) => {
-        const unsubscribe = this.auth.onAuthStateChanged(user => {
-          observer.next(user);
-          observer.complete();
-        });
-        return { unsubscribe: async () => (await unsubscribe)() };
-      })
-    );
-  }
-
-  getUserType(id: string): Observable<string | null> {
-    return this.firestore.collection('users').doc<IUser>(id).valueChanges().pipe(
-      map((user: any) => user ? user.tipoUsuario : null)
-    )
-  }
 
   getUserData(): Observable<any> {
     return this.auth.authState.pipe(

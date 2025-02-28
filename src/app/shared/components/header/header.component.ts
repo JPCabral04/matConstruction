@@ -10,28 +10,19 @@ export class HeaderComponent implements OnInit {
 
 
   public perfilImagem: string = '';
-  public isAdmin: boolean = false;
+  public isAdmin?: boolean;
 
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
-    this.auth.getCurrentUser()
-      .then(user => {
-        if (user) {
-          this.auth.getUserType(user.uid).subscribe(userType => {
-            this.isAdmin = userType === "administrador"
-          })
-        }
-      })
-      .catch(error => {
-        console.log("Erro ao obter o usuário", error);
-      })
 
     this.auth.getUserData().subscribe(user => {
       if (user) {
         this.perfilImagem = user.imagemUrl;
+        this.isAdmin = user.tipoUsuario === 'administrador';
       }
     })
+
   }
 
   logout() {
