@@ -6,14 +6,14 @@ import { Observable, of, firstValueFrom } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IUser } from '../interfaces/user.interface';
 import { UserType } from '../enums/userType.enum';
-
+import { DatabaseService } from './database.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) { }
+  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private router: Router, private db: DatabaseService) { }
 
   signUp(name: string, email: string, password: string) {
 
@@ -87,6 +87,17 @@ export class AuthService {
       map(user => user ? user.uid : null)
     )
   }
+
+  // deleteAccount(user: IUser): void {
+  //   if (user.id) {
+  //     this.db.deleteDocument('users', user.id)
+  //       .then(() => {
+  //         console.log('Usuário deletado do banco');
+  //         this.auth.
+  //       })
+  //   }
+  // }
+
 
 }
 

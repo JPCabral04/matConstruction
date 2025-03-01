@@ -14,11 +14,14 @@
     class="mt-16 flex w-full max-w-4xl flex-col items-center justify-center gap-4"
   >
     <!-- Atributos Usuários -->
-    <div class="grid w-full grid-cols-4 items-center px-16 text-center">
+    <div
+      class="grid w-full grid-cols-[repeat(4,1fr)_auto] items-center px-16 text-center"
+    >
       <h2 class="text-lg text-primary">Nome</h2>
       <h2 class="text-lg text-primary">E-mail</h2>
       <h2 class="text-lg text-primary">Código</h2>
       <h2 class="text-lg text-primary">Função</h2>
+      <div class="w-10"></div>
     </div>
 
     <!-- Usuários -->
@@ -39,7 +42,9 @@
             alt="Foto usuário"
           />
         }
-        <div class="grid w-full grid-cols-4 items-center text-center">
+        <div
+          class="grid w-full grid-cols-[repeat(4,1fr)_auto] items-center text-center"
+        >
           <p>
             {{ user.nome }}
           </p>
@@ -50,19 +55,32 @@
             {{ user.codigo }}
           </p>
 
-          <select class="w-full" (change)="onSubmit($event, user)">
-            <option>{{ user.tipoUsuario }}</option>
+          <!-- Função Usuários -->
+          <div>
             @if (user.tipoUsuario === "administrador") {
-              <option>estoquista</option>
-              <option>leitor</option>
-            } @else if (user.tipoUsuario === "estoquista") {
-              <option>administrador</option>
-              <option>leitor</option>
+              <p class="text-green-700">administrador</p>
             } @else {
-              <option>administrador</option>
-              <option>estoquista</option>
+              <select
+                class="w-full max-w-28 text-center"
+                (change)="userTypeChanges($event, user)"
+              >
+                @if (user.tipoUsuario === "estoquista") {
+                  <option>{{ user.tipoUsuario }}</option>
+                  <option>leitor</option>
+                } @else {
+                  <option>{{ user.tipoUsuario }}</option>
+                  <option>estoquista</option>
+                }
+              </select>
             }
-          </select>
+          </div>
+
+          <div class="flex w-10 justify-end">
+            <i
+              class="fa fa-close cursor-pointer text-2xl text-red-600 transition hover:scale-125"
+              (click)="deleteUser(user)"
+            ></i>
+          </div>
         </div>
       </div>
     }

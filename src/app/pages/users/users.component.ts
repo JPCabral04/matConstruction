@@ -47,17 +47,19 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  onSubmit(event: Event, user: IUser) {
+  userTypeChanges(event: Event, user: IUser) {
 
     const newType = (event.target as HTMLSelectElement).value as UserType;
 
     if (user.id) {
       this.db.updateDocument<IUser>('users', user.id, { ...user, tipoUsuario: newType })
     }
-
-
   }
 
-
+  deleteUser(user: IUser) {
+    if (user.id) {
+      this.db.deleteDocument<IUser>('users', user.id);
+    }
+  }
 
 }
