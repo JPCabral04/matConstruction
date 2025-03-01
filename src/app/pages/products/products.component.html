@@ -1,1 +1,119 @@
 <app-header></app-header>
+
+<main
+  class="mx-auto mt-8 flex min-h-screen w-full max-w-5xl flex-col items-center justify-between gap-4"
+>
+  <!-- Filtro dos produtos -->
+  <div
+    class="flex w-full flex-col gap-4 rounded-2xl border-2 border-solid bg-white px-12 py-6 shadow-md"
+  >
+    <h2 class="text-center text-xl font-semibold text-primary">
+      Lista de produtos
+    </h2>
+
+    <!-- Filtros -->
+    <h3>Filtros:</h3>
+
+    <div class="flex w-full items-center justify-between gap-4 px-3">
+      <!-- Filtro por Nome -->
+      <div class="flex w-full items-center gap-2 md:w-auto">
+        <label for="nameFilter" class="flex items-center gap-1">
+          <i class="fas fa-user text-gray-500"></i>
+          <span class="text-sm font-medium text-gray-700">Nome:</span>
+        </label>
+        <input
+          id="nameFilter"
+          type="text"
+          class="w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-300 md:w-40"
+        />
+      </div>
+
+      <!-- Filtro por Data -->
+      <div class="flex w-full items-center gap-2 md:w-auto">
+        <label for="dateFilter" class="flex items-center gap-1">
+          <i class="fas fa-calendar-alt text-gray-500"></i>
+          <span class="text-sm font-medium text-gray-700"
+            >Data de cadastro:</span
+          >
+        </label>
+        <input
+          id="dateFilter"
+          type="date"
+          class="w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-300 md:w-40"
+        />
+      </div>
+
+      <!-- Filtro por Tipo -->
+      <div class="flex w-full items-center gap-2 md:w-auto">
+        <label for="typeFilter" class="flex items-center gap-1">
+          <i class="fas fa-filter text-gray-500"></i>
+          <span class="text-sm font-medium text-gray-700">Tipo:</span>
+        </label>
+        <select
+          id="typeFilter"
+          class="w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-300 md:w-40"
+        >
+          <option value="">Selecione...</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>Ordenar por:</h3>
+
+    <div class="flex w-full items-center justify-between px-3">
+      <!-- Ordenar filtragem ascendente e descendente-->
+      <div class="flex items-center gap-8">
+        <!-- Ordenar por nome -->
+        <div class="flex items-center gap-2">
+          <button
+            (click)="toogleOrder('name')"
+            class="font-medium text-gray-900"
+          >
+            Nome
+            <i
+              class="fas text-gray-500"
+              [ngClass]="{
+                'fa-sort-up': orderByName === 'asc',
+                'fa-sort-down': orderByName === 'desc',
+              }"
+            ></i>
+          </button>
+        </div>
+
+        <!-- Ordenar por data da edição -->
+        <div class="flex items-center gap-2">
+          <button
+            (click)="toogleOrder('date')"
+            class="font-medium text-gray-900"
+          >
+            Data edição
+            <i
+              class="fas text-gray-500"
+              [ngClass]="{
+                'fa-sort-up': orderByDate === 'asc',
+                'fa-sort-down': orderByDate === 'desc',
+              }"
+            ></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Botões -->
+      <div class="flex items-center gap-8">
+        <button
+          class="w-32 rounded-full border-[1px] border-primary px-3 py-1 text-primary transition hover:scale-105 hover:bg-primary hover:text-white"
+          type="button"
+        >
+          Limpar filtros
+        </button>
+
+        <button
+          class="w-32 rounded-full border-2 border-primary bg-primary px-3 py-1 text-white transition hover:scale-105 hover:bg-opacity-90 disabled:opacity-50"
+          type="button"
+        >
+          Filtrar
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
