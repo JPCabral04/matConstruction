@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TableModule } from 'primeng/table'; // Importação direta do módulo PrimeNG
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -20,6 +20,7 @@ import { InitialScreenComponent } from './pages/initial-screen/initial-screen.co
 import { HeaderComponent } from './shared/components/header/header.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ProductsComponent } from './pages/products/products.component';
+import { ProductsTableComponent } from './shared/components/products-table/products-table.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ProductsComponent } from './pages/products/products.component';
     InitialScreenComponent,
     HeaderComponent,
     UsersComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductsTableComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +44,11 @@ import { ProductsComponent } from './pages/products/products.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    TableModule // Adicionando PrimeNG corretamente
   ],
-  providers: [],
+  providers: [], // Removemos providePrimeNG
   bootstrap: [AppComponent]
 })
 export class AppModule { }
