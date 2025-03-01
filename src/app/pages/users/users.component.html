@@ -49,9 +49,20 @@
           <p>
             {{ user.codigo }}
           </p>
-          <p>
-            {{ user.tipoUsuario }}
-          </p>
+
+          <select class="w-full" (change)="onSubmit($event, user)">
+            <option>{{ user.tipoUsuario }}</option>
+            @if (user.tipoUsuario === "administrador") {
+              <option>estoquista</option>
+              <option>leitor</option>
+            } @else if (user.tipoUsuario === "estoquista") {
+              <option>administrador</option>
+              <option>leitor</option>
+            } @else {
+              <option>administrador</option>
+              <option>estoquista</option>
+            }
+          </select>
         </div>
       </div>
     }

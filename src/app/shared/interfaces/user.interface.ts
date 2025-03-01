@@ -5,5 +5,6 @@ export interface IUser {
   nome: string,
   email: string,
   imagemUrl?: string,
-  tipoUsuario: UserType
+  tipoUsuario: UserType,
+  id?: string
 }

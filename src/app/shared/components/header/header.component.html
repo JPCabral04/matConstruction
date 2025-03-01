@@ -51,11 +51,13 @@
 
   <!-- Avatar e Logout -->
   <div class="flex items-center gap-6">
-    <img
-      [src]="perfilImagem"
-      alt="Avatar"
-      class="h-12 w-12 rounded-full border-2 border-white shadow-md"
-    />
+    @if (perfilImagem) {
+      <img
+        [src]="perfilImagem"
+        alt="Avatar"
+        class="h-12 w-12 rounded-full border-2 border-white shadow-md"
+      />
+    }
 
     <a
       (click)="logout()"

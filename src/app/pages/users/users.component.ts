@@ -1,6 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { IUser } from '../../shared/interfaces/user.interface';
 import { DatabaseService } from '../../shared/services/database.service';
+import { FormControl } from '@angular/forms';
+import { AuthService } from '../../shared/services/auth.service';
+import { UserType } from '../../shared/enums/userType.enum';
 
 
 @Component({
@@ -11,6 +14,7 @@ import { DatabaseService } from '../../shared/services/database.service';
 export class UsersComponent implements OnInit {
 
   db = inject(DatabaseService);
+  auth = inject(AuthService);
   users?: IUser[];
   filteredUsers?: IUser[];
 
@@ -42,6 +46,18 @@ export class UsersComponent implements OnInit {
       user.tipoUsuario?.toLowerCase().includes(input)
     );
   }
+
+  onSubmit(event: Event, user: IUser) {
+
+    const newType = (event.target as HTMLSelectElement).value as UserType;
+
+    if (user.id) {
+      this.db.updateDocument<IUser>('users', user.id, { ...user, tipoUsuario: newType })
+    }
+
+
+  }
+
 
 
 }

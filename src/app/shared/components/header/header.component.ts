@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent implements OnInit {
 
 
-  public perfilImagem: string = '';
+  public perfilImagem?: string;
   public isAdmin?: boolean;
 
   constructor(private auth: AuthService) { }
