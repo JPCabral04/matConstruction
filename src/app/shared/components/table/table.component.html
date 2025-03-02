@@ -1,0 +1,10 @@
+<p-table [value]="data" showGridlines [tableStyle]="{ 'min-width': '64rem' }">
+  <ng-template #header>
+    <ng-container *ngTemplateOutlet="customHeader"></ng-container>
+  </ng-template>
+  <ng-template #body let-data>
+    <ng-container
+      *ngTemplateOutlet="customBody; context: { $implicit: data }"
+    ></ng-container>
+  </ng-template>
+</p-table>

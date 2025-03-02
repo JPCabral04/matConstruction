@@ -1,12 +1,13 @@
-import { IProduto } from "./product.interface";
+import { IProduct } from "./product.interface";
 import { IUser } from "./user.interface";
 
 export interface IStock {
-  produto: IProduto,
+  produto: IProduct,
   lote: number,
   quantidade: number,
   dataValidade?: Date,
   dataCadastro: Date,
   dataUltimaEdicao: Date,
-  usuarioEditou: IUser
+  usuarioEditou: IUser,
+  id?: string
 }

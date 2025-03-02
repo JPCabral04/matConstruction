@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <main
-  class="mx-auto mt-8 flex min-h-screen w-full max-w-5xl flex-col items-center justify-between gap-4"
+  class="mx-auto mb-4 mt-8 flex min-h-screen w-full max-w-5xl flex-col items-center justify-between gap-4"
 >
   <!-- Filtro dos produtos -->
   <div
@@ -117,5 +117,34 @@
     </div>
   </div>
 
-  <app-products-table></app-products-table>
+  <!-- Tabela -->
+  <app-table [data]="products">
+    <!-- Cabeçalho -->
+    <ng-template #customHeader>
+      <tr class="!h-20 bg-primary text-white">
+        <th class="!p-4 !text-center">Imagem</th>
+        <th class="!p-4 !text-center">Nome</th>
+        <th class="!p-4 !text-center">Descrição</th>
+        <th class="!p-4 !text-center">Data de cadastro</th>
+        <th class="!p-4 !text-center">Tipo</th>
+      </tr>
+    </ng-template>
+
+    <!-- Corpo -->
+    <ng-template #customBody let-product>
+      <tr class="!h-20">
+        <td class="!p-4 !text-center">
+          <img
+            class="mx-auto h-20 w-20"
+            [src]="product.imagemUrl || 'assets/images/perfil.png'"
+            alt="Imagem Produto"
+          />
+        </td>
+        <td class="!p-4 !text-center">{{ product.nome }}</td>
+        <td class="!p-4 !text-center">{{ product.description }}</td>
+        <td class="!p-4 !text-center">{{ product.dataCadastro }}</td>
+        <td class="!p-4 !text-center">{{ product.tipo }}</td>
+      </tr>
+    </ng-template>
+  </app-table>
 </main>

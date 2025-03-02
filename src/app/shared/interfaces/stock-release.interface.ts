@@ -5,5 +5,6 @@ export interface IStockRelease {
   estoque: IStock,
   quantidade: number,
   data: Date,
-  usuario: IUser
+  usuario: IUser,
+  id?: string
 }

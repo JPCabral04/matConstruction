@@ -20,7 +20,7 @@ import { InitialScreenComponent } from './pages/initial-screen/initial-screen.co
 import { HeaderComponent } from './shared/components/header/header.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ProductsComponent } from './pages/products/products.component';
-import { ProductsTableComponent } from './shared/components/products-table/products-table.component';
+import { TableComponent } from './shared/components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { ProductsTableComponent } from './shared/components/products-table/produ
     HeaderComponent,
     UsersComponent,
     ProductsComponent,
-    ProductsTableComponent
+    TableComponent
   ],
   imports: [
     BrowserModule,
