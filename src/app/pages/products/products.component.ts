@@ -30,12 +30,44 @@ export class ProductsComponent implements OnInit {
 
 
   toogleOrder(type: 'name' | 'date') {
+    this.cleanFilter();
+
     if (type === 'name') {
       this.orderByName = this.orderByName === 'asc' ? 'desc' : 'asc';
+      this.sortProductsByName();
     } else {
       this.orderByDate = this.orderByDate === 'asc' ? 'desc' : 'asc';
+      this.sortProductsByDate();
     }
   }
+
+  sortProductsByName() {
+
+    let sortedProducts: IProduct[];
+
+    if (this.orderByName === 'asc') {
+      sortedProducts = [...this.products].sort((a, b) => a.nome.localeCompare(b.nome));
+    } else {
+      sortedProducts = [...this.products].sort((a, b) => b.nome.localeCompare(a.nome));
+    }
+    this.products = sortedProducts;
+  }
+
+  sortProductsByDate() {
+    let sortedProducts: IProduct[];
+
+    sortedProducts = [...this.products].sort((a, b) => {
+      const dateA = new Date(a.dataUltimaEdicao).getTime();
+      const dateB = new Date(b.dataUltimaEdicao).getTime();
+
+      return this.orderByDate === 'asc'
+        ? dateA - dateB
+        : dateB - dateA;
+    });
+
+    this.products = sortedProducts;
+  }
+
 
   getProducts() {
     this.db.getCollection<IProduct>('products').subscribe(products => {
@@ -72,7 +104,5 @@ export class ProductsComponent implements OnInit {
 
   obSubmit() {
     this.filterProducts();
-
-
   }
 }
