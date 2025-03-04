@@ -4,14 +4,15 @@
   class="mx-auto mb-4 mt-8 flex min-h-screen w-full max-w-5xl flex-col items-center justify-between gap-4"
 >
   <!-- Filtro dos produtos -->
-  <div
+  <form
+    [formGroup]="productFilterForm"
+    (ngSubmit)="obSubmit()"
     class="flex w-full flex-col gap-4 rounded-2xl border-2 border-solid bg-white px-12 py-6 shadow-md"
   >
     <h2 class="text-center text-xl font-semibold text-primary">
       Lista de produtos
     </h2>
 
-    <!-- Filtros -->
     <h3>Filtros:</h3>
 
     <div class="flex w-full items-center justify-between gap-4 px-3">
@@ -24,6 +25,7 @@
         <input
           id="nameFilter"
           type="text"
+          formControlName="name"
           class="w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-300 md:w-40"
         />
       </div>
@@ -39,6 +41,7 @@
         <input
           id="dateFilter"
           type="date"
+          formControlName="date"
           class="w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-300 md:w-40"
         />
       </div>
@@ -52,8 +55,10 @@
         <select
           id="typeFilter"
           class="w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-300 md:w-40"
+          formControlName="type"
         >
           <option value="">Selecione...</option>
+          <option value="teste">teste</option>
         </select>
       </div>
     </div>
@@ -103,19 +108,20 @@
         <button
           class="w-32 rounded-full border-[1px] border-primary px-3 py-1 text-primary transition hover:scale-105 hover:bg-primary hover:text-white"
           type="button"
+          (click)="cleanFilter()"
         >
           Limpar filtros
         </button>
 
         <button
           class="w-32 rounded-full border-2 border-primary bg-primary px-3 py-1 text-white transition hover:scale-105 hover:bg-opacity-90 disabled:opacity-50"
-          type="button"
+          type="submit"
         >
           Filtrar
         </button>
       </div>
     </div>
-  </div>
+  </form>
 
   <!-- Tabela -->
   <app-table [data]="products">
@@ -142,7 +148,7 @@
         </td>
         <td class="!p-4 !text-center">{{ product.nome }}</td>
         <td class="!p-4 !text-center">{{ product.description }}</td>
-        <td class="!p-4 !text-center">{{ product.dataCadastro }}</td>
+        <td class="!p-4 !text-center">{{ product.dataCadastro | date }}</td>
         <td class="!p-4 !text-center">{{ product.tipo }}</td>
       </tr>
     </ng-template>

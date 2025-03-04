@@ -45,6 +45,7 @@ export class UsersComponent implements OnInit {
       user.email?.toLowerCase().includes(input) ||
       user.tipoUsuario?.toLowerCase().includes(input)
     );
+
   }
 
   userTypeChanges(event: Event, user: IUser) {
