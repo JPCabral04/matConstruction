@@ -3,33 +3,156 @@
 <main
   class="mx-auto mb-4 mt-8 flex min-h-screen w-full max-w-5xl flex-col items-center justify-between gap-4"
 >
+  <!-- Filtro dos produtos -->
+  <form
+    [formGroup]="stockFilterForm"
+    (ngSubmit)="obSubmit()"
+    class="flex w-full flex-col gap-4 rounded-2xl border-2 border-solid bg-white px-12 py-6 shadow-md"
+  >
+    <h2 class="text-center text-xl font-semibold text-primary">
+      Itens do estoque
+    </h2>
+
+    <h3>Filtros:</h3>
+
+    <div class="flex w-full items-center justify-between gap-4 px-3">
+      <!-- Filtro por Nome -->
+      <div class="flex w-full items-center gap-2 md:w-auto">
+        <label for="nameFilter" class="flex items-center gap-1">
+          <i class="fas fa-user text-gray-500"></i>
+          <span class="text-sm font-medium text-gray-700">Nome:</span>
+        </label>
+        <input
+          id="nameFilter"
+          type="text"
+          formControlName="name"
+          class="w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-300 md:w-40"
+        />
+      </div>
+
+      <!-- Filtro por Data -->
+      <div class="flex w-full items-center gap-2 md:w-auto">
+        <label for="dateFilter" class="flex items-center gap-1">
+          <i class="fas fa-calendar-alt text-gray-500"></i>
+          <span class="text-sm font-medium text-gray-700"
+            >Data de cadastro:</span
+          >
+        </label>
+        <input
+          id="dateFilter"
+          type="date"
+          formControlName="date"
+          class="w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-300 md:w-40"
+        />
+      </div>
+
+      <!-- Filtro por Tipo -->
+      <div class="flex w-full items-center gap-2 md:w-auto">
+        <label for="typeFilter" class="flex items-center gap-1">
+          <i class="fas fa-filter text-gray-500"></i>
+          <span class="text-sm font-medium text-gray-700">Tipo:</span>
+        </label>
+        <select
+          id="typeFilter"
+          class="w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-300 md:w-40"
+          formControlName="type"
+        >
+          <option value="">Selecione...</option>
+          <option value="teste">teste</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>Ordenar por:</h3>
+
+    <div class="flex w-full items-center justify-between px-3">
+      <!-- Ordenar filtragem ascendente e descendente-->
+      <div class="flex items-center gap-8">
+        <!-- Ordenar por nome -->
+        <div class="flex items-center gap-2">
+          <button
+            (click)="toogleOrder('lote')"
+            type="button"
+            class="font-medium text-gray-900"
+          >
+            Nome
+            <i
+              class="fas text-gray-500"
+              [ngClass]="{
+                'fa-sort-up': orderByLote === 'asc',
+                'fa-sort-down': orderByLote === 'desc',
+              }"
+            ></i>
+          </button>
+        </div>
+
+        <!-- Ordenar por data da edição -->
+        <div class="flex items-center gap-2">
+          <button
+            (click)="toogleOrder('date')"
+            type="button"
+            class="font-medium text-gray-900"
+          >
+            Data edição
+            <i
+              class="fas text-gray-500"
+              [ngClass]="{
+                'fa-sort-up': orderByDate === 'asc',
+                'fa-sort-down': orderByDate === 'desc',
+              }"
+            ></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Botões -->
+      <div class="flex items-center gap-8">
+        <button
+          class="w-32 rounded-full border-[1px] border-primary px-3 py-1 text-primary transition hover:scale-105 hover:bg-primary hover:text-white"
+          type="button"
+          (click)="cleanFilter()"
+        >
+          Limpar filtros
+        </button>
+
+        <button
+          class="w-32 rounded-full border-2 border-primary bg-primary px-3 py-1 text-white transition hover:scale-105 hover:bg-opacity-90 disabled:opacity-50"
+          type="submit"
+        >
+          Filtrar
+        </button>
+      </div>
+    </div>
+  </form>
+
   <!-- Tabela -->
   <app-table [data]="stockItems">
     <!-- Cabeçalho -->
     <ng-template #customHeader>
       <tr class="!h-20 bg-primary text-white">
-        <th class="!p-4 !text-center">Imagem</th>
-        <th class="!p-4 !text-center">Nome</th>
-        <th class="!p-4 !text-center">Descrição</th>
+        <th class="!p-4 !text-center">Lote</th>
+        <th class="!p-4 !text-center">Quantidade</th>
+        <th class="!p-4 !text-center">Data de validade</th>
         <th class="!p-4 !text-center">Data de cadastro</th>
-        <th class="!p-4 !text-center">Tipo</th>
+        <th class="!p-4 !text-center"></th>
       </tr>
     </ng-template>
 
     <!-- Corpo -->
     <ng-template #customBody let-item>
       <tr class="!h-20">
-        <td class="!p-4 !text-center">
-          <img
-            class="mx-auto h-20 w-20"
-            [src]="item.imagemUrl || 'assets/images/perfil.png'"
-            alt="Imagem Produto"
-          />
-        </td>
         <td class="!p-4 !text-center">{{ item.lote }}</td>
-        <td class="!p-4 !text-center">{{ item.id }}</td>
-        <td class="!p-4 !text-center">{{ item.dataCadastro }}</td>
-        <td class="!p-4 !text-center">{{ item.dataUltimaEdicao }}</td>
+        <td class="!p-4 !text-center">{{ item.quantidade }}</td>
+        <td class="!p-4 !text-center">{{ item.dataValidade | date }}</td>
+        <td class="!p-4 !text-center">{{ item.dataCadastro | date }}</td>
+        <td class="!p-4 !text-center">
+          <button
+            class="w-32 rounded-full border-2 border-primary bg-primary px-3 py-1 text-white transition hover:scale-105 hover:bg-opacity-90 disabled:opacity-50"
+            type="button"
+          >
+            Editar
+          </button>
+        </td>
       </tr>
     </ng-template>
   </app-table>
