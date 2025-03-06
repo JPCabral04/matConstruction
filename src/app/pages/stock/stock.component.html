@@ -149,10 +149,17 @@
           <button
             class="w-32 rounded-full border-2 border-primary bg-primary px-3 py-1 text-white transition hover:scale-105 hover:bg-opacity-90 disabled:opacity-50"
             type="button"
+            (click)="actionModal(false)"
           >
             Editar
           </button>
         </td>
+        @if (modalIsOpen) {
+          <app-edit-modal
+            [stockItem]="item"
+            (modalState)="actionModal($event)"
+          ></app-edit-modal>
+        }
       </tr>
     </ng-template>
   </app-table>

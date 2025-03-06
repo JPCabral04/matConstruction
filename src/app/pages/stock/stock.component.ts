@@ -19,8 +19,11 @@ export class StockComponent implements OnInit {
   stockItems: IStock[] = [];
   unfilteredStockItems: IStock[] = [];
   filteredStockItems: IStock[] = [];
+
   orderByLote: 'asc' | 'desc' = 'asc';
   orderByDate: 'asc' | 'desc' = 'asc';
+
+  modalIsOpen: boolean = false;
 
   constructor(private db: DatabaseService) { };
 
@@ -99,7 +102,9 @@ export class StockComponent implements OnInit {
     this.stockItems = [...this.unfilteredStockItems];
   }
 
-
+  actionModal(event: boolean) {
+    event ? this.modalIsOpen = false : this.modalIsOpen = true;
+  }
 
   obSubmit() {
 

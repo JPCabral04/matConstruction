@@ -21,6 +21,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { TableComponent } from './shared/components/table/table.component';
+import { EditModalComponent } from './shared/components/edit-modal/edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { TableComponent } from './shared/components/table/table.component';
     HeaderComponent,
     UsersComponent,
     ProductsComponent,
-    TableComponent
+    TableComponent,
+    EditModalComponent
   ],
   imports: [
     BrowserModule,
