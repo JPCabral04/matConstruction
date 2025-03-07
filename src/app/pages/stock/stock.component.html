@@ -144,7 +144,7 @@
     <ng-template #customBody let-item>
       <tr class="!h-20">
         <td class="!p-4 !text-center">
-          {{ getStockProductsName(item.idProduto) }}
+          {{ item.lote }}
         </td>
         <td class="!p-4 !text-center">{{ item.quantidade }}</td>
         <td class="!p-4 !text-center">{{ item.dataValidade | date }}</td>
