@@ -21,9 +21,10 @@ export class EditModalComponent implements OnInit {
     product: new FormControl(''),
     lote: new FormControl(0),
     quantity: new FormControl(0),
-  })
+    date: new FormControl('')
+  });
 
-  constructor(private db: DatabaseService) { };
+  constructor(private db: DatabaseService) { }
 
   ngOnInit() {
     this.getProducts();
@@ -32,8 +33,12 @@ export class EditModalComponent implements OnInit {
 
     if (this.stockItem) {
       this.editForm.patchValue({
+        product: this.stockItem.idProduto,
         lote: this.stockItem.lote,
-        quantity: this.stockItem.quantidade
+        quantity: this.stockItem.quantidade,
+        date: this.stockItem.dataValidade
+          ? new Date(this.stockItem.dataValidade).toISOString().split("T")[0]
+          : "",
       });
     }
   }
@@ -43,7 +48,7 @@ export class EditModalComponent implements OnInit {
       if (products) {
         this.products = products;
       }
-    })
+    });
   }
 
   getCurrentStockProduct() {
@@ -52,7 +57,7 @@ export class EditModalComponent implements OnInit {
         if (product) {
           this.stockItemProduct = product;
         }
-      })
+      });
     }
   }
 
@@ -60,10 +65,10 @@ export class EditModalComponent implements OnInit {
     this.db.getCollection<IStock>('estoques').subscribe(items => {
       if (items) {
         this.stockItems = items;
-        console.log(this.stockItems);
       }
-    })
+    });
   }
+
 
   closeModal() {
     this.modalState.emit(false);
@@ -72,9 +77,14 @@ export class EditModalComponent implements OnInit {
   onSubmit() {
     if (this.stockItem?.id) {
       const formData = {
+        idProduto: this.editForm.get('product')?.value || undefined,
         lote: Number(this.editForm.get('lote')?.value),
         quantidade: Number(this.editForm.get('quantity')?.value),
-      }
+        dataValidade: this.formatDateToISO(this.editForm.get('date')?.value)
+      };
+
+      console.log(formData.idProduto);
+
 
       const updatedStockItem: Partial<IStock> = {
         ...this.stockItem,
@@ -84,14 +94,16 @@ export class EditModalComponent implements OnInit {
       this.db.updateDocument<IStock>('estoques', this.stockItem.id, updatedStockItem)
         .then(() => {
           console.log('Estoque atualizado');
-
         })
         .catch((error) => {
           console.log('Erro ao atualizar estoque', error);
-
         });
     }
     this.closeModal();
   }
 
+  private formatDateToISO(dateString: string | null | undefined): string | undefined {
+    if (!dateString) return undefined;
+    return `${dateString}T00:00:00.000`;
+  }
 }

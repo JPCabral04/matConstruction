@@ -4,7 +4,7 @@ export interface IStock {
   idProduto: string,
   lote: number,
   quantidade: number,
-  dataValidade?: Date,
+  dataValidade?: string,
   dataCadastro: Date,
   dataUltimaEdicao: Date,
   usuarioEditou: IUser,

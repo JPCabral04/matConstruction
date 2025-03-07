@@ -1,5 +1,5 @@
 <div
-  class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
 >
   <div
     class="flex w-full max-w-lg flex-col gap-3 rounded-2xl border-2 border-solid bg-white p-8 shadow-xl"
@@ -33,14 +33,20 @@
           id="product"
           formControlName="product"
         >
-          <option value="{{ stockItemProduct?.nome }}">
-            {{ stockItemProduct?.nome }}
+          <option
+            *ngIf="stockItemProduct"
+            [value]="stockItemProduct.id"
+            selected
+          >
+            {{ stockItemProduct.nome }}
           </option>
-          @for (item of products; track $index) {
-            @if (item.nome !== stockItemProduct?.nome) {
-              <option value="{{ item.nome }}">{{ item.nome }}</option>
-            }
-          }
+          <option
+            *ngFor="let item of products"
+            [value]="item.id"
+            [hidden]="item.nome === stockItemProduct?.nome"
+          >
+            {{ item.nome }}
+          </option>
         </select>
       </div>
 
@@ -66,8 +72,22 @@
         />
       </div>
 
+      <!-- Data de validade -->
+      <div>
+        <label class="text-md font-medium text-gray-700" for="lote"
+          >Data de validade</label
+        >
+        <input
+          id="dateFilter"
+          type="date"
+          formControlName="date"
+          class="w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-300"
+        />
+      </div>
+
+      <!-- Botão de enviar forms -->
       <button
-        class="rounded-full border-2 border-primary bg-primary px-3 py-1 text-white transition hover:scale-105 hover:bg-opacity-90 disabled:opacity-50"
+        class="mt-4 rounded-full border-2 border-primary bg-primary px-3 py-2 text-white transition hover:scale-105 hover:bg-opacity-90 disabled:opacity-50"
         type="submit"
       >
         Confirmar mudanças
