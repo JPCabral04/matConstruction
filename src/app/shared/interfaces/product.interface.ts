@@ -8,5 +8,6 @@ export interface IProduct {
   dataUltimaEdicao: Date,
   usuarioEditou: IUser,
   descricao?: string,
-  imagemUrl?: string
+  imagemUrl?: string,
+  id?: string
 }

@@ -1,8 +1,7 @@
-import { IProduct } from "./product.interface";
 import { IUser } from "./user.interface";
 
 export interface IStock {
-  produto: IProduct,
+  idProduto: string,
   lote: number,
   quantidade: number,
   dataValidade?: Date,
