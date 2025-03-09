@@ -3,9 +3,12 @@
 <main
   class="mx-auto mb-4 mt-8 flex min-h-screen w-full max-w-5xl flex-col items-center gap-4"
 >
+  <!-- Tabela -->
   <app-table [data]="releases">
+    <!-- Cabeçalho -->
     <ng-template #customHeader>
       <tr class="!h-20 bg-primary text-white">
+        <th class="!p-4 !text-center">Usuário</th>
         <th class="!p-4 !text-center">Lote</th>
         <th class="!p-4 !text-center">Produto</th>
         <th class="!p-4 !text-center">Quantidade</th>
@@ -13,8 +16,20 @@
       </tr>
     </ng-template>
 
+    <!-- Corpo -->
     <ng-template #customBody let-item>
       <tr class="!h-20">
+        <td class="!p-4 !text-center">
+          <img
+            class="mx-auto h-20 w-20"
+            [src]="
+              userCache.get(item.idBaixa)?.imagemUrl ||
+              'assets/images/perfil.png'
+            "
+            alt="Imagem Produto"
+          />
+          {{ userCache.get(item.idBaixa)?.email }}
+        </td>
         <td class="!p-4 !text-center">{{ stockCache.get(item.idBaixa) }}</td>
         <td class="!p-4 !text-center">
           <img

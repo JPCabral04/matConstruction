@@ -5,9 +5,14 @@ import { IStock } from '../../shared/interfaces/stock.interface';
 import { IProduct } from '../../shared/interfaces/product.interface';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { IUser } from '../../shared/interfaces/user.interface';
 
 interface ProductCache {
   nome: string;
+  imagemUrl: string;
+}
+interface UserCache {
+  email: string;
   imagemUrl: string;
 }
 
@@ -19,6 +24,7 @@ interface ProductCache {
 export class RegistryComponent implements OnInit {
   releases: IStockRelease[] = [];
   stockCache = new Map<string, number>();
+  userCache = new Map<string, UserCache>();
   productCache = new Map<string, ProductCache>();
 
   constructor(private db: DatabaseService) { }
@@ -32,6 +38,7 @@ export class RegistryComponent implements OnInit {
       if (releases) {
         this.releases = releases;
         this.buildStockCache();
+        this.buildUserCache();
       }
     });
   }
@@ -62,6 +69,23 @@ export class RegistryComponent implements OnInit {
     });
   }
 
+  getUserById(id: string): Observable<IUser | undefined> {
+    return this.db.getDocument<IUser>('users', id);
+  }
+
+  buildUserCache() {
+    this.userCache.clear();
+    this.releases.forEach((item) => {
+      if (item.idBaixa) {
+        this.getUserById(item.idUsuario).subscribe((user) => {
+          if (item.idBaixa && user) {
+            this.userCache.set(item.idBaixa, { email: user.email ?? '', imagemUrl: user.imagemUrl ?? '' });
+          }
+        });
+      }
+    });
+  }
+
   buildProductCache(productId: string, baixaId: string) {
     if (!this.productCache.has(baixaId)) {
       this.getProductByStockId(productId).subscribe((product) => {
@@ -76,4 +100,5 @@ export class RegistryComponent implements OnInit {
     return this.db.getDocument<IProduct>('products', id);
   }
 }
+
 
