@@ -3,7 +3,9 @@ import { IStock } from '../../shared/interfaces/stock.interface';
 import { DatabaseService } from '../../shared/services/database.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '../../shared/interfaces/product.interface';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { AuthService } from '../../shared/services/auth.service';
+import { IUser } from '../../shared/interfaces/user.interface';
 interface ProductCache {
   nome: string;
   imagemUrl: string;
@@ -34,10 +36,13 @@ export class StockComponent implements OnInit {
 
   productCache = new Map<string, ProductCache>();
 
-  constructor(private db: DatabaseService) { };
+  userType: string = 'leitor';
+
+  constructor(private db: DatabaseService, private auth: AuthService) { };
 
   ngOnInit(): void {
     this.getStockItems();
+    this.getUserType();
   }
 
   getStockItems() {
@@ -48,6 +53,14 @@ export class StockComponent implements OnInit {
         this.buildStockCache();
       }
     });
+  }
+
+  getUserType() {
+    this.auth.getUserData().subscribe((user: IUser) => {
+      if (user) {
+        this.userType = user.tipoUsuario;
+      }
+    })
   }
 
   getStockLote(): number[] {

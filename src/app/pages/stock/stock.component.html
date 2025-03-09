@@ -137,7 +137,9 @@
         <th class="!p-4 !text-center">Quantidade</th>
         <th class="!p-4 !text-center">Data de validade</th>
         <th class="!p-4 !text-center">Data de cadastro</th>
-        <th class="!p-4 !text-center"></th>
+        @if (userType === "administrador" || userType === "estoquista") {
+          <th class="!p-4 !text-center"></th>
+        }
       </tr>
     </ng-template>
 
@@ -160,15 +162,17 @@
         <td class="!p-4 !text-center">{{ item.quantidade }}</td>
         <td class="!p-4 !text-center">{{ item.dataValidade | date }}</td>
         <td class="!p-4 !text-center">{{ item.dataCadastro | date }}</td>
-        <td class="!p-4 !text-center">
-          <button
-            class="w-32 rounded-full border-2 border-primary bg-primary px-3 py-1 text-white transition hover:scale-105 hover:bg-opacity-90 disabled:opacity-50"
-            type="button"
-            (click)="actionModal(true, item)"
-          >
-            Editar
-          </button>
-        </td>
+        @if (userType === "administrador" || userType === "estoquista") {
+          <td class="!p-4 !text-center">
+            <button
+              class="w-32 rounded-full border-2 border-primary bg-primary px-3 py-1 text-white transition hover:scale-105 hover:bg-opacity-90 disabled:opacity-50"
+              type="button"
+              (click)="actionModal(true, item)"
+            >
+              Editar
+            </button>
+          </td>
+        }
       </tr>
     </ng-template>
   </app-table>
