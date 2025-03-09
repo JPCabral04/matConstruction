@@ -37,6 +37,10 @@ export class ProductsComponent implements OnInit {
     })
   }
 
+  getProductType(): string[] {
+    return Array.from(new Set(this.unfilteredProducts.map(item => item.tipo))).sort((a, b) => a.localeCompare(b) - b.localeCompare(a));
+  }
+
   toogleOrder(type: 'name' | 'date') {
     this.cleanFilter();
 
@@ -75,7 +79,6 @@ export class ProductsComponent implements OnInit {
 
     this.products = sortedProducts;
   }
-
 
 
   filterProducts() {

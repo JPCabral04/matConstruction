@@ -54,12 +54,6 @@ export class StockComponent implements OnInit {
     return Array.from(new Set(this.unfilteredStockItems.map(item => item.lote))).sort((a, b) => a - b);
   }
 
-
-  // TODO: There is a pending bug fix to be addressed later.
-  getStockProductsName(productId: string) {
-
-  }
-
   toogleOrder(type: 'lote' | 'date') {
     this.cleanFilter();
 
