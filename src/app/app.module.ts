@@ -7,7 +7,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { TableModule } from 'primeng/table'; // Importação direta do módulo PrimeNG
+import { TableModule } from 'primeng/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -21,7 +21,8 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { TableComponent } from './shared/components/table/table.component';
-import { EditModalComponent } from './shared/components/edit-modal/edit-modal.component';
+import { EditModalComponent } from './shared/components/edit-modal-stock/edit-modal.component';
+import { EditModalProductsComponent } from './shared/components/edit-modal-products/edit-modal-products.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { EditModalComponent } from './shared/components/edit-modal/edit-modal.co
     UsersComponent,
     ProductsComponent,
     TableComponent,
-    EditModalComponent
+    EditModalComponent,
+    EditModalProductsComponent
   ],
   imports: [
     BrowserModule,
