@@ -3,7 +3,11 @@ import { IStock } from '../../shared/interfaces/stock.interface';
 import { DatabaseService } from '../../shared/services/database.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '../../shared/interfaces/product.interface';
-
+import { Observable } from 'rxjs';
+interface ProductCache {
+  nome: string;
+  imagemUrl: string;
+}
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
@@ -28,6 +32,8 @@ export class StockComponent implements OnInit {
 
   modalIsOpen: boolean = false;
 
+  productCache = new Map<string, ProductCache>();
+
   constructor(private db: DatabaseService) { };
 
   ngOnInit(): void {
@@ -39,6 +45,7 @@ export class StockComponent implements OnInit {
       if (items) {
         this.stockItems = items;
         this.unfilteredStockItems = [...items];
+        this.buildStockCache();
       }
     });
   }
@@ -122,6 +129,21 @@ export class StockComponent implements OnInit {
     if (item) {
       this.selectedItem = item;
     }
+  }
+
+  getProductsById(id: string): Observable<IProduct | undefined> {
+    return this.db.getDocument<IProduct>('products', id);
+  }
+
+  buildStockCache() {
+    this.productCache.clear();
+    this.stockItems.forEach((item) => {
+      this.getProductsById(item.idProduto).subscribe((product) => {
+        if (item.id && product) {
+          this.productCache.set(item.id, { nome: product.nome ?? '', imagemUrl: product.imagemUrl ?? '' });
+        }
+      });
+    });
   }
 
   obSubmit() {

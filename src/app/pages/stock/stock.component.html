@@ -133,11 +133,11 @@
     <ng-template #customHeader>
       <tr class="!h-20 bg-primary text-white">
         <th class="!p-4 !text-center">Lote</th>
+        <th class="!p-4 !text-center">Produto</th>
         <th class="!p-4 !text-center">Quantidade</th>
         <th class="!p-4 !text-center">Data de validade</th>
         <th class="!p-4 !text-center">Data de cadastro</th>
         <th class="!p-4 !text-center"></th>
-        <th class="!p-4 !text-center">Data edição</th>
       </tr>
     </ng-template>
 
@@ -146,6 +146,16 @@
       <tr class="!h-20">
         <td class="!p-4 !text-center">
           {{ item.lote }}
+        </td>
+        <td class="!p-4 !text-center">
+          <img
+            class="mx-auto h-20 w-20"
+            [src]="
+              productCache.get(item.id)?.imagemUrl || 'assets/images/perfil.png'
+            "
+            alt="Imagem Produto"
+          />
+          {{ productCache.get(item.id)?.nome }}
         </td>
         <td class="!p-4 !text-center">{{ item.quantidade }}</td>
         <td class="!p-4 !text-center">{{ item.dataValidade | date }}</td>
@@ -159,7 +169,6 @@
             Editar
           </button>
         </td>
-        <td class="!p-4 !text-center">{{ item.dataUltimaEdicao | date }}</td>
       </tr>
     </ng-template>
   </app-table>
