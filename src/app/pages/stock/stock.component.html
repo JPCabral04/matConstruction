@@ -42,8 +42,8 @@
           formControlName="lote"
         >
           <option value="">Selecione...</option>
-          @for (item of unfilteredStockItems; track $index) {
-            <option value="{{ item.lote }}">{{ item.lote }}</option>
+          @for (lote of getStockLote(); track $index) {
+            <option value="{{ lote }}">{{ lote }}</option>
           }
         </select>
       </div>
