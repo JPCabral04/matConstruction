@@ -3,6 +3,53 @@
 <main
   class="mx-auto mb-4 mt-8 flex min-h-screen w-full max-w-5xl flex-col items-center gap-4"
 >
+  <section
+    class="flex w-full flex-col gap-4 rounded-2xl border-2 border-solid bg-white px-12 py-6 shadow-md"
+  >
+    <h3>Ordenar por:</h3>
+
+    <div class="flex w-full items-center justify-between px-3">
+      <!-- Ordenar filtragem ascendente e descendente-->
+      <div class="flex items-center gap-8">
+        <!-- Ordenar por nome -->
+        <div class="flex items-center gap-2">
+          <button
+            (click)="toogleOrder('name')"
+            type="button"
+            class="font-medium text-gray-900"
+          >
+            Nome
+            <i
+              class="fas text-gray-500"
+              [ngClass]="{
+                'fa-sort-up': orderByName === 'asc',
+                'fa-sort-down': orderByName === 'desc',
+              }"
+            ></i>
+          </button>
+        </div>
+
+        <!-- Ordenar por data da edição -->
+        <div class="flex items-center gap-2">
+          <button
+            (click)="toogleOrder('date')"
+            type="button"
+            class="font-medium text-gray-900"
+          >
+            Data edição
+            <i
+              class="fas text-gray-500"
+              [ngClass]="{
+                'fa-sort-up': orderByDate === 'asc',
+                'fa-sort-down': orderByDate === 'desc',
+              }"
+            ></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Tabela -->
   <app-table [data]="releases">
     <!-- Cabeçalho -->

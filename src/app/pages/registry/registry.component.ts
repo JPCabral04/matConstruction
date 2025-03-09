@@ -27,6 +27,9 @@ export class RegistryComponent implements OnInit {
   userCache = new Map<string, UserCache>();
   productCache = new Map<string, ProductCache>();
 
+  orderByName: 'asc' | 'desc' = 'asc';
+  orderByDate: 'asc' | 'desc' = 'asc';
+
   constructor(private db: DatabaseService) { }
 
   ngOnInit(): void {
@@ -41,6 +44,51 @@ export class RegistryComponent implements OnInit {
         this.buildUserCache();
       }
     });
+  }
+
+  toogleOrder(type: 'name' | 'date') {
+
+    if (type === 'name') {
+      this.orderByName = this.orderByName === 'asc' ? 'desc' : 'asc';
+      this.sortReleaseByEmail();
+    } else {
+      this.orderByDate = this.orderByDate === 'asc' ? 'desc' : 'asc';
+      this.sortReleasesByDate();
+    }
+  }
+
+  sortReleaseByEmail() {
+    let sortedReleases: IStockRelease[];
+
+    if (this.orderByName === 'asc') {
+      sortedReleases = [...this.releases].sort((a, b) => {
+        const emailA = this.userCache.get(a.idBaixa ?? '')?.email || '';
+        const emailB = this.userCache.get(b.idBaixa ?? '')?.email || '';
+        return emailA.localeCompare(emailB);
+      });
+    } else {
+      sortedReleases = [...this.releases].sort((a, b) => {
+        const emailA = this.userCache.get(a.idBaixa ?? '')?.email || '';
+        const emailB = this.userCache.get(b.idBaixa ?? '')?.email || '';
+        return emailB.localeCompare(emailA);
+      });
+    }
+    this.releases = sortedReleases;
+  }
+
+  sortReleasesByDate() {
+    let sortedReleases: IStockRelease[];
+
+    sortedReleases = [...this.releases].sort((a, b) => {
+      const dateA = new Date(a.data).getTime();
+      const dateB = new Date(b.data).getTime();
+
+      return this.orderByDate === 'asc'
+        ? dateA - dateB
+        : dateB - dateA;
+    });
+
+    this.releases = sortedReleases;
   }
 
   getStockLoteById(id: string, idBaixa: string): Observable<number> {
