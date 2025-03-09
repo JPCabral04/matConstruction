@@ -28,6 +28,14 @@ export class ProductsComponent implements OnInit {
     this.getProducts();
   }
 
+  getProducts() {
+    this.db.getCollection<IProduct>('products').subscribe(products => {
+      if (products) {
+        this.products = products;
+        this.unfilteredProducts = products;
+      }
+    })
+  }
 
   toogleOrder(type: 'name' | 'date') {
     this.cleanFilter();
@@ -69,14 +77,6 @@ export class ProductsComponent implements OnInit {
   }
 
 
-  getProducts() {
-    this.db.getCollection<IProduct>('products').subscribe(products => {
-      if (products) {
-        this.products = products;
-        this.unfilteredProducts = products;
-      }
-    })
-  }
 
   filterProducts() {
     const name = this.productFilterForm.get('name')?.value?.toLowerCase().trim();

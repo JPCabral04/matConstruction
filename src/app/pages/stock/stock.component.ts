@@ -107,11 +107,11 @@ export class StockComponent implements OnInit {
 
 
     this.filteredStockItems = this.unfilteredStockItems.filter(stockItem => {
-
+      const matchesName = name ? this.productCache.get(stockItem.id ?? '')?.nome.toLowerCase().includes(name) : true;
       const matchesLote = lote ? stockItem.lote === lote : true;
       const matchesDate = date ? new Date(stockItem.dataCadastro).toISOString().split('T')[0] === date : true;
 
-      return matchesLote && matchesDate;
+      return matchesName && matchesLote && matchesDate;
     });
 
     this.stockItems = [...this.filteredStockItems];
