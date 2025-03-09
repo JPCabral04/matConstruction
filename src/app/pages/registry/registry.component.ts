@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../../shared/services/database.service';
 import { IStockRelease } from '../../shared/interfaces/stock-release.interface';
-import { Observable, of } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
 import { IStock } from '../../shared/interfaces/stock.interface';
 import { IProduct } from '../../shared/interfaces/product.interface';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+
+interface ProductCache {
+  nome: string;
+  imagemUrl: string;
+}
 
 @Component({
   selector: 'app-registry',
@@ -14,7 +19,7 @@ import { IProduct } from '../../shared/interfaces/product.interface';
 export class RegistryComponent implements OnInit {
   releases: IStockRelease[] = [];
   stockCache = new Map<string, number>();
-  productCache = new Map<string, string>();
+  productCache = new Map<string, ProductCache>();
 
   constructor(private db: DatabaseService) { }
 
@@ -31,23 +36,44 @@ export class RegistryComponent implements OnInit {
     });
   }
 
-  getStockLoteById(id: string): Observable<number> {
+  getStockLoteById(id: string, idBaixa: string): Observable<number> {
     return this.db.getDocument<IStock>('estoques', id).pipe(
-      map((stock) => stock?.lote ?? 0),
+      map((stock) => {
+        const lote = stock?.lote ?? 0;
+        if (stock?.idProduto) {
+          this.buildProductCache(stock.idProduto, idBaixa);
+        }
+        return lote;
+      }),
       catchError(() => of(0))
     );
   }
 
   buildStockCache() {
     this.stockCache.clear();
-
     this.releases.forEach((item) => {
-      this.getStockLoteById(item.idEstoque).subscribe((lote) => {
-        if (item.idBaixa) {
-          this.stockCache.set(item.idBaixa, lote);
-        }
-      });
+      if (item.idBaixa) {
+        this.getStockLoteById(item.idEstoque, item.idBaixa).subscribe((lote) => {
+          if (item.idBaixa) {
+            this.stockCache.set(item.idBaixa, lote);
+          }
+        });
+      }
     });
   }
 
+  buildProductCache(productId: string, baixaId: string) {
+    if (!this.productCache.has(baixaId)) {
+      this.getProductByStockId(productId).subscribe((product) => {
+        if (product) {
+          this.productCache.set(baixaId, { nome: product.nome ?? '', imagemUrl: product.imagemUrl ?? '' });
+        }
+      });
+    }
+  }
+
+  getProductByStockId(id: string): Observable<IProduct | undefined> {
+    return this.db.getDocument<IProduct>('products', id);
+  }
 }
+

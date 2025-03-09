@@ -130,8 +130,7 @@
     <!-- Cabeçalho -->
     <ng-template #customHeader>
       <tr class="!h-20 bg-primary text-white">
-        <th class="!p-4 !text-center">Imagem</th>
-        <th class="!p-4 !text-center">Nome</th>
+        <th class="!p-4 !text-center">Produto</th>
         <th class="!p-4 !text-center">Descrição</th>
         <th class="!p-4 !text-center">Data de cadastro</th>
         <th class="!p-4 !text-center">Tipo</th>
@@ -147,8 +146,8 @@
             [src]="product.imagemUrl || 'assets/images/perfil.png'"
             alt="Imagem Produto"
           />
+          {{ product.nome }}
         </td>
-        <td class="!p-4 !text-center">{{ product.nome }}</td>
         <td class="!p-4 !text-center">{{ product.description }}</td>
         <td class="!p-4 !text-center">{{ product.dataCadastro | date }}</td>
         <td class="!p-4 !text-center">{{ product.tipo }}</td>
