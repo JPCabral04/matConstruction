@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
     photoPath: new FormControl('')
   });
 
-  constructor(private auth: AuthService, private db: DatabaseService, private storage: AngularFireStorage,) { }
+  constructor(private auth: AuthService, private db: DatabaseService, private storage: AngularFireStorage) { }
 
   ngOnInit(): void {
     this.auth.getUserData().subscribe((user: IUser) => {

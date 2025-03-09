@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../../shared/services/database.service';
 import { IProduct } from '../../shared/interfaces/product.interface';
 import { FormControl, FormGroup } from '@angular/forms';
+import { IUser } from '../../shared/interfaces/user.interface';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-products',
@@ -22,10 +24,17 @@ export class ProductsComponent implements OnInit {
   orderByName: 'asc' | 'desc' = 'asc';
   orderByDate: 'asc' | 'desc' = 'asc';
 
-  constructor(private db: DatabaseService) { };
+  modalIsOpen: boolean = false;
+
+  selectedProduct?: IProduct;
+
+  userType: string = 'leitor';
+
+  constructor(private db: DatabaseService, private auth: AuthService) { };
 
   ngOnInit(): void {
     this.getProducts();
+    this.getUserType();
   }
 
   getProducts() {
@@ -33,6 +42,14 @@ export class ProductsComponent implements OnInit {
       if (products) {
         this.products = products;
         this.unfilteredProducts = products;
+      }
+    })
+  }
+
+  getUserType() {
+    this.auth.getUserData().subscribe((user: IUser) => {
+      if (user) {
+        this.userType = user.tipoUsuario;
       }
     })
   }
@@ -103,7 +120,13 @@ export class ProductsComponent implements OnInit {
     this.products = [...this.unfilteredProducts];
   }
 
+  actionModal(state: boolean, product?: IProduct) {
+    this.modalIsOpen = state;
 
+    if (product) {
+      this.selectedProduct = product;
+    }
+  }
 
   obSubmit() {
     this.filterProducts();
