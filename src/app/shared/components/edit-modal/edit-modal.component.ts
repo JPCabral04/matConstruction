@@ -88,7 +88,8 @@ export class EditModalComponent implements OnInit {
 
       const updatedStockItem: Partial<IStock> = {
         ...this.stockItem,
-        ...formData
+        ...formData,
+        dataUltimaEdicao: this.getCurrentDateISO()
       };
 
       this.db.updateDocument<IStock>('estoques', this.stockItem.id, updatedStockItem)
@@ -106,4 +107,10 @@ export class EditModalComponent implements OnInit {
     if (!dateString) return undefined;
     return `${dateString}T00:00:00.000`;
   }
+
+  private getCurrentDateISO(): string {
+    const today = new Date();
+    return today.toISOString().split("T")[0] + "T00:00:00.000";
+  }
+
 }

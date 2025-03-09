@@ -6,7 +6,7 @@ export interface IStock {
   quantidade: number,
   dataValidade?: string,
   dataCadastro: Date,
-  dataUltimaEdicao: Date,
+  dataUltimaEdicao: string,
   usuarioEditou: IUser,
   id?: string
 }

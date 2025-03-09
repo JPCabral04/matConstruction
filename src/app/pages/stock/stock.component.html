@@ -137,6 +137,7 @@
         <th class="!p-4 !text-center">Data de validade</th>
         <th class="!p-4 !text-center">Data de cadastro</th>
         <th class="!p-4 !text-center"></th>
+        <th class="!p-4 !text-center">Data edição</th>
       </tr>
     </ng-template>
 
@@ -158,6 +159,7 @@
             Editar
           </button>
         </td>
+        <td class="!p-4 !text-center">{{ item.dataUltimaEdicao | date }}</td>
       </tr>
     </ng-template>
   </app-table>

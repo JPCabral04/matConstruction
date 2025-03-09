@@ -1,10 +1,8 @@
-import { IStock } from "./stock.interface";
-import { IUser } from "./user.interface";
 
 export interface IStockRelease {
-  estoque: IStock,
+  idEstoque: string,
+  idBaixa?: string,
   quantidade: number,
-  data: Date,
-  usuario: IUser,
-  id?: string
+  data: string,
+  idUsuario: string,
 }
