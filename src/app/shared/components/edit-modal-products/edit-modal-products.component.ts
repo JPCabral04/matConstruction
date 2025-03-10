@@ -146,6 +146,6 @@ export class EditModalProductsComponent implements OnInit {
 
   private getCurrentDateISO(): string {
     const today = new Date();
-    return today.toISOString().split("T")[0] + "T00:00:00.000";
+    return today.toISOString();
   }
 }

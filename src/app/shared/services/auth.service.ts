@@ -26,7 +26,8 @@ export class AuthService {
             codigo: user.uid.substring(0, 6).toUpperCase(),
             nome: name,
             email: email,
-            tipoUsuario: UserType.leitor
+            tipoUsuario: UserType.leitor,
+            dataCadastro: new Date().toISOString()
           }
 
           await this.saveData(user.uid, userData);
@@ -97,6 +98,7 @@ export class AuthService {
   //       })
   //   }
   // }
+
 
 
 }
