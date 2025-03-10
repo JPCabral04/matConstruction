@@ -3,6 +3,7 @@ import { IProduct } from '../../interfaces/product.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DatabaseService } from '../../services/database.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { IUser } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-edit-modal-products',
@@ -17,6 +18,8 @@ export class EditModalProductsComponent implements OnInit {
   previewUrl: string | null = null;
   isUploading: boolean = false;
 
+  editingUserName?: string;
+
   editForm = new FormGroup({
     name: new FormControl(''),
     description: new FormControl(''),
@@ -28,6 +31,8 @@ export class EditModalProductsComponent implements OnInit {
   constructor(private db: DatabaseService, private storage: AngularFireStorage) { }
 
   ngOnInit() {
+    this.getEditingUserEmail();
+
     if (this.product) {
       this.editForm.patchValue({
         name: this.product.nome,
@@ -37,6 +42,16 @@ export class EditModalProductsComponent implements OnInit {
       });
 
       this.previewUrl = this.product.imagemUrl || "assets/images/perfil.png";
+    }
+  }
+
+  getEditingUserEmail() {
+    if (this.product?.idUsuarioEditou) {
+      this.db.getDocument<IUser>('users', this.product?.idUsuarioEditou).subscribe(user => {
+        if (user) {
+          this.editingUserName = user.email;
+        }
+      })
     }
   }
 

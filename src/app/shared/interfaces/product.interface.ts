@@ -1,4 +1,3 @@
-import { IUser } from "./user.interface";
 
 export interface IProduct {
   nome: string,
@@ -6,7 +5,7 @@ export interface IProduct {
   marca: string,
   dataCadastro: string,
   dataUltimaEdicao: string,
-  usuarioEditou: IUser,
+  idUsuarioEditou: string,
   descricao?: string,
   imagemUrl?: string,
   id?: string

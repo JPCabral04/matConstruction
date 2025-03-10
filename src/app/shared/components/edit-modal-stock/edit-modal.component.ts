@@ -3,6 +3,7 @@ import { IStock } from '../../interfaces/stock.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '../../interfaces/product.interface';
 import { DatabaseService } from '../../services/database.service';
+import { IUser } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-edit-modal',
@@ -17,6 +18,8 @@ export class EditModalComponent implements OnInit {
   stockItems?: IStock[];
   stockItemProduct?: IProduct;
 
+  editingUserName?: string;
+
   editForm = new FormGroup({
     product: new FormControl(''),
     lote: new FormControl(0),
@@ -30,6 +33,7 @@ export class EditModalComponent implements OnInit {
     this.getProducts();
     this.getStockItems();
     this.getCurrentStockProduct();
+    this.getEditingUserEmail();
 
     if (this.stockItem) {
       this.editForm.patchValue({
@@ -67,6 +71,16 @@ export class EditModalComponent implements OnInit {
         this.stockItems = items;
       }
     });
+  }
+
+  getEditingUserEmail() {
+    if (this.stockItem?.idUsuarioEditou) {
+      this.db.getDocument<IUser>('users', this.stockItem?.idUsuarioEditou).subscribe(user => {
+        if (user) {
+          this.editingUserName = user.email;
+        }
+      })
+    }
   }
 
 
